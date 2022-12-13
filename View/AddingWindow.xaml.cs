@@ -2,6 +2,7 @@
 using AppDB.View;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -23,20 +24,47 @@ namespace AppDB.View
     /// </summary>
     public partial class AddingWindow : Window
     {
-        private INVOICES invoice;
-        public AddingWindow()
+        INVOICES _invoice; // Выбранная для изменения накладная
+        MainWindow _mainWindow; // Главная страница
+        SupplementEntities database;
+
+        public AddingWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            _invoice = new INVOICES();
+            _mainWindow = mainWindow;
+            database = _mainWindow.Entities;
+            DataContext = _invoice;
         }
 
-        void CreateNewRecord()
+        // Сбор данных с полей ввода
+        private void ValidateInput()
         {
-            using (DatabaseManager manager = new DatabaseManager())
-            {
-                if(invoice != null)
-                    manager.Invoices.Add(invoice);
-                manager.SaveChanges();
-            }
+            _invoice.DATE_OF_INVOICE = DateTime.Parse(TextBoxDate.Text);
+            _invoice.PRODUCT_ID = ComboBoxProduct.SelectedIndex + 1;
+            _invoice.PURVEYOR_ID = ComboBoxPurveyor.SelectedIndex + 1;
+            _invoice.FORWARDER_ID = ComboBoxForwarder.SelectedIndex + 1;
+            _invoice.SUPPLY_TYPE_ID = ComboBoxSupplyType.SelectedIndex + 1;
+            _invoice.DELIVERY_TONNAGE = Int16.Parse(TextBoxTonnage.Text);
+            _invoice.DELIVERY_COST = Int32.Parse(TextBoxCost.Text);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            ValidateInput();
+            database.INVOICES.Add(_invoice);
+            database.SaveChanges();
+            //Обновление таблицы на главной странице
+            _mainWindow.ReadData();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Инициализация данных ComboBox'ов
+            ComboBoxProduct.ItemsSource = database.PRODUCTS.ToList();
+            ComboBoxPurveyor.ItemsSource = database.PURVEYORS.ToList();
+            ComboBoxForwarder.ItemsSource = database.FORWARDERS.ToList();
+            ComboBoxSupplyType.ItemsSource = database.SUPPLY_TYPES.ToList();
         }
     }
 }

@@ -19,10 +19,19 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="EditRecordButton" Click="EditRecordButton_Click"/>
+                            <Button x:Name="UpdateRecordButton" Background="DarkSeaGreen" Click="UpdateRecordButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="DeleteRecordButton" Background="OrangeRed" Click="DeleteRecordButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
                 <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE}"/>
                 <DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>
