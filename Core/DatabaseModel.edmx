@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище SupplementModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище SupplementModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FORWARDERS">
           <Key>
             <PropertyRef Name="FORWARDER_ID" />
@@ -23,7 +23,7 @@
           <Property Name="FORWARDER_ID" Type="int" />
           <Property Name="SUPPLY_TYPE_ID" Type="int" />
           <Property Name="DELIVERY_TONNAGE" Type="int" />
-          <Property Name="DELIVERY_COST" Type="money" />
+          <Property Name="DELIVERY_COST" Type="int" />
         </EntityType>
         <EntityType Name="PRODUCTS">
           <Key>
@@ -161,143 +161,11 @@
             <End Role="INVOICES" EntitySet="INVOICES" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SupplementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="FORWARDERS">
-          <Key>
-            <PropertyRef Name="FORWARDER_ID" />
-          </Key>
-          <Property Name="FORWARDER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FORWARDER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="INVOICES" Relationship="Self.FK_INVOICES_FORWARDERS" FromRole="FORWARDERS" ToRole="INVOICES" />
-        </EntityType>
-        <EntityType Name="INVOICES">
-          <Key>
-            <PropertyRef Name="INVOICE_ID" />
-          </Key>
-          <Property Name="INVOICE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DATE_OF_INVOICE" Type="DateTime" Precision="0" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-          <Property Name="PURVEYOR_ID" Type="Int32" />
-          <Property Name="FORWARDER_ID" Type="Int32" />
-          <Property Name="SUPPLY_TYPE_ID" Type="Int32" />
-          <Property Name="DELIVERY_TONNAGE" Type="Int32" />
-          <Property Name="DELIVERY_COST" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="FORWARDERS" Relationship="Self.FK_INVOICES_FORWARDERS" FromRole="INVOICES" ToRole="FORWARDERS" />
-          <NavigationProperty Name="PRODUCTS" Relationship="Self.FK_INVOICES_PRODUCTS" FromRole="INVOICES" ToRole="PRODUCTS" />
-          <NavigationProperty Name="PURVEYORS" Relationship="Self.FK_INVOICES_PURVEYORS" FromRole="INVOICES" ToRole="PURVEYORS" />
-          <NavigationProperty Name="SUPPLY_TYPES" Relationship="Self.FK_INVOICES_SUPPLY_TYPES" FromRole="INVOICES" ToRole="SUPPLY_TYPES" />
-        </EntityType>
-        <EntityType Name="PRODUCTS">
-          <Key>
-            <PropertyRef Name="PRODUCT_ID" />
-          </Key>
-          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="INVOICES" Relationship="Self.FK_INVOICES_PRODUCTS" FromRole="PRODUCTS" ToRole="INVOICES" />
-        </EntityType>
-        <EntityType Name="PURVEYORS">
-          <Key>
-            <PropertyRef Name="PURVEYOR_ID" />
-          </Key>
-          <Property Name="PURVEYOR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COMPANY_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PHONE" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="ADDRESS" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="INVOICES" Relationship="Self.FK_INVOICES_PURVEYORS" FromRole="PURVEYORS" ToRole="INVOICES" />
-        </EntityType>
-        <EntityType Name="SUPPLY_TYPES">
-          <Key>
-            <PropertyRef Name="SUPPLY_TYPE_ID" />
-          </Key>
-          <Property Name="SUPPLY_TYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SUPPLY_TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="INVOICES" Relationship="Self.FK_INVOICES_SUPPLY_TYPES" FromRole="SUPPLY_TYPES" ToRole="INVOICES" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="FK_INVOICES_FORWARDERS">
-          <End Role="FORWARDERS" Type="Self.FORWARDERS" Multiplicity="0..1" />
-          <End Role="INVOICES" Type="Self.INVOICES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORWARDERS">
-              <PropertyRef Name="FORWARDER_ID" />
-            </Principal>
-            <Dependent Role="INVOICES">
-              <PropertyRef Name="FORWARDER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INVOICES_PRODUCTS">
-          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="0..1" />
-          <End Role="INVOICES" Type="Self.INVOICES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUCTS">
-              <PropertyRef Name="PRODUCT_ID" />
-            </Principal>
-            <Dependent Role="INVOICES">
-              <PropertyRef Name="PRODUCT_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INVOICES_PURVEYORS">
-          <End Role="PURVEYORS" Type="Self.PURVEYORS" Multiplicity="0..1" />
-          <End Role="INVOICES" Type="Self.INVOICES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PURVEYORS">
-              <PropertyRef Name="PURVEYOR_ID" />
-            </Principal>
-            <Dependent Role="INVOICES">
-              <PropertyRef Name="PURVEYOR_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INVOICES_SUPPLY_TYPES">
-          <End Role="SUPPLY_TYPES" Type="Self.SUPPLY_TYPES" Multiplicity="0..1" />
-          <End Role="INVOICES" Type="Self.INVOICES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SUPPLY_TYPES">
-              <PropertyRef Name="SUPPLY_TYPE_ID" />
-            </Principal>
-            <Dependent Role="INVOICES">
-              <PropertyRef Name="SUPPLY_TYPE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SupplementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FORWARDERS" EntityType="Self.FORWARDERS" />
-          <EntitySet Name="INVOICES" EntityType="Self.INVOICES" />
-          <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCTS" />
-          <EntitySet Name="PURVEYORS" EntityType="Self.PURVEYORS" />
-          <EntitySet Name="SUPPLY_TYPES" EntityType="Self.SUPPLY_TYPES" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_INVOICES_FORWARDERS" Association="Self.FK_INVOICES_FORWARDERS">
-            <End Role="FORWARDERS" EntitySet="FORWARDERS" />
-            <End Role="INVOICES" EntitySet="INVOICES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INVOICES_PRODUCTS" Association="Self.FK_INVOICES_PRODUCTS">
-            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
-            <End Role="INVOICES" EntitySet="INVOICES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INVOICES_PURVEYORS" Association="Self.FK_INVOICES_PURVEYORS">
-            <End Role="PURVEYORS" EntitySet="PURVEYORS" />
-            <End Role="INVOICES" EntitySet="INVOICES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INVOICES_SUPPLY_TYPES" Association="Self.FK_INVOICES_SUPPLY_TYPES">
-            <End Role="SUPPLY_TYPES" EntitySet="SUPPLY_TYPES" />
-            <End Role="INVOICES" EntitySet="INVOICES" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -328,6 +196,28 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="FORWARDERS" EntityType="SupplementModel.FORWARDERS" />
+          <EntitySet Name="INVOICES" EntityType="SupplementModel.INVOICES" />
+          <EntitySet Name="PRODUCTS" EntityType="SupplementModel.PRODUCTS" />
+          <EntitySet Name="PURVEYORS" EntityType="SupplementModel.PURVEYORS" />
+          <EntitySet Name="SUPPLY_TYPES" EntityType="SupplementModel.SUPPLY_TYPES" />
+          <EntitySet Name="sysdiagrams" EntityType="SupplementModel.sysdiagrams" />
+          <AssociationSet Name="FK_INVOICES_FORWARDERS" Association="SupplementModel.FK_INVOICES_FORWARDERS">
+            <End Role="FORWARDERS" EntitySet="FORWARDERS" />
+            <End Role="INVOICES" EntitySet="INVOICES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVOICES_PRODUCTS" Association="SupplementModel.FK_INVOICES_PRODUCTS">
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+            <End Role="INVOICES" EntitySet="INVOICES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVOICES_PURVEYORS" Association="SupplementModel.FK_INVOICES_PURVEYORS">
+            <End Role="PURVEYORS" EntitySet="PURVEYORS" />
+            <End Role="INVOICES" EntitySet="INVOICES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVOICES_SUPPLY_TYPES" Association="SupplementModel.FK_INVOICES_SUPPLY_TYPES">
+            <End Role="SUPPLY_TYPES" EntitySet="SUPPLY_TYPES" />
+            <End Role="INVOICES" EntitySet="INVOICES" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -340,71 +230,121 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="FORWARDERS">
+          <Key>
+            <PropertyRef Name="FORWARDER_ID" />
+          </Key>
+          <Property Name="FORWARDER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORWARDER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INVOICES" Relationship="SupplementModel.FK_INVOICES_FORWARDERS" FromRole="FORWARDERS" ToRole="INVOICES" />
+        </EntityType>
+        <EntityType Name="INVOICES">
+          <Key>
+            <PropertyRef Name="INVOICE_ID" />
+          </Key>
+          <Property Name="INVOICE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATE_OF_INVOICE" Type="DateTime" Precision="0" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="PURVEYOR_ID" Type="Int32" />
+          <Property Name="FORWARDER_ID" Type="Int32" />
+          <Property Name="SUPPLY_TYPE_ID" Type="Int32" />
+          <Property Name="DELIVERY_TONNAGE" Type="Int32" />
+          <Property Name="DELIVERY_COST" Type="Int32" />
+          <NavigationProperty Name="FORWARDERS" Relationship="SupplementModel.FK_INVOICES_FORWARDERS" FromRole="INVOICES" ToRole="FORWARDERS" />
+          <NavigationProperty Name="PRODUCTS" Relationship="SupplementModel.FK_INVOICES_PRODUCTS" FromRole="INVOICES" ToRole="PRODUCTS" />
+          <NavigationProperty Name="PURVEYORS" Relationship="SupplementModel.FK_INVOICES_PURVEYORS" FromRole="INVOICES" ToRole="PURVEYORS" />
+          <NavigationProperty Name="SUPPLY_TYPES" Relationship="SupplementModel.FK_INVOICES_SUPPLY_TYPES" FromRole="INVOICES" ToRole="SUPPLY_TYPES" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="PRODUCT_ID" />
+          </Key>
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INVOICES" Relationship="SupplementModel.FK_INVOICES_PRODUCTS" FromRole="PRODUCTS" ToRole="INVOICES" />
+        </EntityType>
+        <EntityType Name="PURVEYORS">
+          <Key>
+            <PropertyRef Name="PURVEYOR_ID" />
+          </Key>
+          <Property Name="PURVEYOR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMPANY_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INVOICES" Relationship="SupplementModel.FK_INVOICES_PURVEYORS" FromRole="PURVEYORS" ToRole="INVOICES" />
+        </EntityType>
+        <EntityType Name="SUPPLY_TYPES">
+          <Key>
+            <PropertyRef Name="SUPPLY_TYPE_ID" />
+          </Key>
+          <Property Name="SUPPLY_TYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUPPLY_TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INVOICES" Relationship="SupplementModel.FK_INVOICES_SUPPLY_TYPES" FromRole="SUPPLY_TYPES" ToRole="INVOICES" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_INVOICES_FORWARDERS">
+          <End Type="SupplementModel.FORWARDERS" Role="FORWARDERS" Multiplicity="0..1" />
+          <End Type="SupplementModel.INVOICES" Role="INVOICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORWARDERS">
+              <PropertyRef Name="FORWARDER_ID" />
+            </Principal>
+            <Dependent Role="INVOICES">
+              <PropertyRef Name="FORWARDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVOICES_PRODUCTS">
+          <End Type="SupplementModel.PRODUCTS" Role="PRODUCTS" Multiplicity="0..1" />
+          <End Type="SupplementModel.INVOICES" Role="INVOICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTS">
+              <PropertyRef Name="PRODUCT_ID" />
+            </Principal>
+            <Dependent Role="INVOICES">
+              <PropertyRef Name="PRODUCT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVOICES_PURVEYORS">
+          <End Type="SupplementModel.PURVEYORS" Role="PURVEYORS" Multiplicity="0..1" />
+          <End Type="SupplementModel.INVOICES" Role="INVOICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PURVEYORS">
+              <PropertyRef Name="PURVEYOR_ID" />
+            </Principal>
+            <Dependent Role="INVOICES">
+              <PropertyRef Name="PURVEYOR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVOICES_SUPPLY_TYPES">
+          <End Type="SupplementModel.SUPPLY_TYPES" Role="SUPPLY_TYPES" Multiplicity="0..1" />
+          <End Type="SupplementModel.INVOICES" Role="INVOICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUPPLY_TYPES">
+              <PropertyRef Name="SUPPLY_TYPE_ID" />
+            </Principal>
+            <Dependent Role="INVOICES">
+              <PropertyRef Name="SUPPLY_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище SupplementModelContainer" CdmEntityContainer="SupplementEntities">
-          <EntitySetMapping Name="FORWARDERS">
-            <EntityTypeMapping TypeName="SupplementModel.FORWARDERS">
-              <MappingFragment StoreEntitySet="FORWARDERS">
-                <ScalarProperty Name="FORWARDER_ID" ColumnName="FORWARDER_ID" />
-                <ScalarProperty Name="FORWARDER_NAME" ColumnName="FORWARDER_NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="INVOICES">
-            <EntityTypeMapping TypeName="SupplementModel.INVOICES">
-              <MappingFragment StoreEntitySet="INVOICES">
-                <ScalarProperty Name="INVOICE_ID" ColumnName="INVOICE_ID" />
-                <ScalarProperty Name="DATE_OF_INVOICE" ColumnName="DATE_OF_INVOICE" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="PURVEYOR_ID" ColumnName="PURVEYOR_ID" />
-                <ScalarProperty Name="FORWARDER_ID" ColumnName="FORWARDER_ID" />
-                <ScalarProperty Name="SUPPLY_TYPE_ID" ColumnName="SUPPLY_TYPE_ID" />
-                <ScalarProperty Name="DELIVERY_TONNAGE" ColumnName="DELIVERY_TONNAGE" />
-                <ScalarProperty Name="DELIVERY_COST" ColumnName="DELIVERY_COST" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUCTS">
-            <EntityTypeMapping TypeName="SupplementModel.PRODUCTS">
-              <MappingFragment StoreEntitySet="PRODUCTS">
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PURVEYORS">
-            <EntityTypeMapping TypeName="SupplementModel.PURVEYORS">
-              <MappingFragment StoreEntitySet="PURVEYORS">
-                <ScalarProperty Name="PURVEYOR_ID" ColumnName="PURVEYOR_ID" />
-                <ScalarProperty Name="COMPANY_NAME" ColumnName="COMPANY_NAME" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SUPPLY_TYPES">
-            <EntityTypeMapping TypeName="SupplementModel.SUPPLY_TYPES">
-              <MappingFragment StoreEntitySet="SUPPLY_TYPES">
-                <ScalarProperty Name="SUPPLY_TYPE_ID" ColumnName="SUPPLY_TYPE_ID" />
-                <ScalarProperty Name="SUPPLY_TYPE_NAME" ColumnName="SUPPLY_TYPE_NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SupplementModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище SupplementModel.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище SupplementModel.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище SupplementModel.sp_dropdiagram" />
@@ -429,6 +369,65 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище SupplementModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище SupplementModel.sp_upgraddiagrams" />
+          <EntitySetMapping Name="FORWARDERS">
+            <EntityTypeMapping TypeName="SupplementModel.FORWARDERS">
+              <MappingFragment StoreEntitySet="FORWARDERS">
+                <ScalarProperty Name="FORWARDER_NAME" ColumnName="FORWARDER_NAME" />
+                <ScalarProperty Name="FORWARDER_ID" ColumnName="FORWARDER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVOICES">
+            <EntityTypeMapping TypeName="SupplementModel.INVOICES">
+              <MappingFragment StoreEntitySet="INVOICES">
+                <ScalarProperty Name="DELIVERY_COST" ColumnName="DELIVERY_COST" />
+                <ScalarProperty Name="DELIVERY_TONNAGE" ColumnName="DELIVERY_TONNAGE" />
+                <ScalarProperty Name="SUPPLY_TYPE_ID" ColumnName="SUPPLY_TYPE_ID" />
+                <ScalarProperty Name="FORWARDER_ID" ColumnName="FORWARDER_ID" />
+                <ScalarProperty Name="PURVEYOR_ID" ColumnName="PURVEYOR_ID" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="DATE_OF_INVOICE" ColumnName="DATE_OF_INVOICE" />
+                <ScalarProperty Name="INVOICE_ID" ColumnName="INVOICE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTS">
+            <EntityTypeMapping TypeName="SupplementModel.PRODUCTS">
+              <MappingFragment StoreEntitySet="PRODUCTS">
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PURVEYORS">
+            <EntityTypeMapping TypeName="SupplementModel.PURVEYORS">
+              <MappingFragment StoreEntitySet="PURVEYORS">
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="COMPANY_NAME" ColumnName="COMPANY_NAME" />
+                <ScalarProperty Name="PURVEYOR_ID" ColumnName="PURVEYOR_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUPPLY_TYPES">
+            <EntityTypeMapping TypeName="SupplementModel.SUPPLY_TYPES">
+              <MappingFragment StoreEntitySet="SUPPLY_TYPES">
+                <ScalarProperty Name="SUPPLY_TYPE_NAME" ColumnName="SUPPLY_TYPE_NAME" />
+                <ScalarProperty Name="SUPPLY_TYPE_ID" ColumnName="SUPPLY_TYPE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SupplementModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

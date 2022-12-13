@@ -4,9 +4,95 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppDB.View"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="EditingWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="EditingGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="ID"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="DATE OF INVOICE"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="PRODUCT ID"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="PURVEYOR ID"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="FORWARDER ID"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="SUPPLY TYPE ID"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="DELIVERY TONNAGE"/>
+        <Label Grid.Column="0" Grid.Row="7" Content="DELIVERY COST"/>
+
+
+        <TextBox x:Name="TextBoxID" 
+                 Text="{Binding INVOICE_ID}"
+                 Foreground="{StaticResource Color-WhiteGreen}" 
+                 Background="{StaticResource Color-Green}" 
+                 Grid.Column="1" Grid.Row="0"/>
+        <TextBox x:Name="TextBoxDate"
+                 Text="{Binding DATE_OF_INVOICE }"
+                 Foreground="{StaticResource Color-WhiteGreen}" 
+                 Background="{StaticResource Color-Green}" 
+                 Grid.Column="1" Grid.Row="1"/>
+
+        <ComboBox x:Name="ComboBoxProduct"      
+                  
+                  DisplayMemberPath="PRODUCT_NAME"
+                  
+                  Foreground="{StaticResource Color-Black}"  
+                  Background="{StaticResource Color-Green}"   
+                  Grid.Column="1" Grid.Row="2">
+        </ComboBox>
+        <ComboBox x:Name="ComboBoxPurveyor"     
+                  
+                  Foreground="{StaticResource Color-Black}"  
+                  DisplayMemberPath="COMPANY_NAME"
+                  Background="{StaticResource Color-Green}"   
+                  Grid.Column="1" Grid.Row="3">
+            
+        </ComboBox>
+        <ComboBox x:Name="ComboBoxForwarder"    
+
+                  Foreground="{StaticResource Color-Black}"  
+                  DisplayMemberPath="FORWARDER_NAME"
+                  Background="{StaticResource Color-Green}"   
+                  Grid.Column="1" Grid.Row="4">
+            
+        </ComboBox>
+        <ComboBox x:Name="ComboBoxSupplyType"   
+
+                  Foreground="{StaticResource Color-Black}"  
+                  DisplayMemberPath="SUPPLY_TYPE_NAME"
+                  Background="{StaticResource Color-Green}"   
+                  Grid.Column="1" Grid.Row="5">
+            
+        </ComboBox>
+
+        <TextBox x:Name="TextBoxTonnage" 
+                 Text="{Binding DELIVERY_TONNAGE}"
+                 Foreground="{StaticResource Color-WhiteGreen}" 
+                 Background="{StaticResource Color-Green}" 
+                 Grid.Column="1" Grid.Row="6"/>
+        <TextBox x:Name="TextBoxCost" 
+                 Text="{Binding DELIVERY_COST}"
+                 Foreground="{StaticResource Color-WhiteGreen}" 
+                 Background="{StaticResource Color-Green}" 
+                 Grid.Column="1" Grid.Row="7"/>
         
+        <Button x:Name="SaveButton" Content="Save" Click="SaveButton_Click" 
+                HorizontalAlignment="Center" 
+                Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
+        <Button x:Name="CancelButton" Content="Cancel" 
+                HorizontalAlignment="Center" 
+                Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"/>
     </Grid>
 </Window>

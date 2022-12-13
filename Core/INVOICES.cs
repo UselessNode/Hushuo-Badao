@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AppDB.View
+namespace AppDB.Core
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace AppDB.View
         public Nullable<int> FORWARDER_ID { get; set; }
         public Nullable<int> SUPPLY_TYPE_ID { get; set; }
         public Nullable<int> DELIVERY_TONNAGE { get; set; }
-        public Nullable<decimal> DELIVERY_COST { get; set; }
+        public Nullable<int> DELIVERY_COST { get; set; }
     
         public virtual FORWARDERS FORWARDERS { get; set; }
         public virtual PRODUCTS PRODUCTS { get; set; }

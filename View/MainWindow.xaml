@@ -4,29 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Менеджер базы данных" Height="450" Width="800">
+        Title="Менеджер базы данных" Height="800" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <DataGrid x:Name="InvoicesDataGrid" Background="Beige" 
-                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
-                  Grid.Row="1" ColumnWidth="*" Margin="5" IsSynchronizedWithCurrentItem="True">
+                  AutoGenerateColumns="False" CanUserAddRows="False" 
+                  IsReadOnly="True" ColumnWidth="Auto"
+                  Margin="5,5,5,5" IsSynchronizedWithCurrentItem="True"
+                  Grid.Row="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="INVOICE_ID" Binding="{Binding INVOICE_ID}"/>
-                <DataGridTextColumn Header="DATE_OF_INVOICE" Binding="{Binding DATE_OF_INVOICE}"/>
-                <DataGridTextColumn Header="PRODUCT_ID" Binding="{Binding PRODUCT_ID}"/>
-                <DataGridTextColumn Header="PURVEYOR_ID" Binding="{Binding PURVEYOR_ID}"/>
-                <DataGridTextColumn Header="FORWARDER_ID" Binding="{Binding FORWARDER_ID}"/>
-                <DataGridTextColumn Header="SUPPLY_TYPE_ID" Binding="{Binding SUPPLY_TYPE_ID}"/>
-                <DataGridTextColumn Header="DELIVERY_TONNAGE" Binding="{Binding DELIVERY_TONNAGE}"/>
-                <DataGridTextColumn Header="DELIVERY_COST" Binding="{Binding DELIVERY_COST}"/>
-                
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <Button x:Name="EditRecordButton" Click="EditRecordButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+                <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
+                <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE}"/>
+                <DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>
+                <DataGridTextColumn Header="Поставщик"      Binding="{Binding PURVEYORS.COMPANY_NAME}"/>
+                <DataGridTextColumn Header="Экспедитор"     Binding="{Binding FORWARDERS.FORWARDER_NAME}"/>
+                <DataGridTextColumn Header="Тип поставки"   Binding="{Binding SUPPLY_TYPES.SUPPLY_TYPE_NAME}"/>
+                <DataGridTextColumn Header="Тоннаж"         Binding="{Binding DELIVERY_TONNAGE}"/>
+                <DataGridTextColumn Header="Стоимость"      Binding="{Binding DELIVERY_COST}"/>
+
+
+
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="CreateRecordButton" Content="Создать накладную" Padding="5" Margin="5"
+                HorizontalAlignment="Center" Click="CreateRecordButton_Click"
+                VerticalAlignment="Center" Grid.Row="1"/>
     </Grid>
 </Window>

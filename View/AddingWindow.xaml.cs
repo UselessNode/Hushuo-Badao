@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AppDB.Core;
+using AppDB.View;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace AppDB.View
 {
     /// <summary>
@@ -19,9 +23,20 @@ namespace AppDB.View
     /// </summary>
     public partial class AddingWindow : Window
     {
+        private INVOICES invoice;
         public AddingWindow()
         {
             InitializeComponent();
+        }
+
+        void CreateNewRecord()
+        {
+            using (DatabaseManager manager = new DatabaseManager())
+            {
+                if(invoice != null)
+                    manager.Invoices.Add(invoice);
+                manager.SaveChanges();
+            }
         }
     }
 }

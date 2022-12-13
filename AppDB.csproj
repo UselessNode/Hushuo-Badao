@@ -69,33 +69,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="View\DatabaseModel.cs">
+    <Compile Include="Core\DatabaseManager.cs" />
+    <Compile Include="Core\DatabaseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\FORWARDERS.cs">
+    <Compile Include="Core\FORWARDERS.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\INVOICES.cs">
+    <Compile Include="Core\INVOICES.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\PRODUCTS.cs">
+    <Compile Include="Core\PRODUCTS.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\PURVEYORS.cs">
+    <Compile Include="Core\PURVEYORS.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\sp_helpdiagramdefinition_Result.cs">
+    <Compile Include="Core\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\sp_helpdiagrams_Result.cs">
+    <Compile Include="Core\sp_helpdiagrams_Result.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\SUPPLY_TYPES.cs">
+    <Compile Include="Core\SUPPLY_TYPES.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\sysdiagrams.cs">
+    <Compile Include="Core\sysdiagrams.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Page Include="ThemeDictionary.xaml">
@@ -125,12 +126,12 @@
     <Compile Include="View\AddingWindow.xaml.cs">
       <DependentUpon>AddingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DatabaseModel.Context.cs">
+    <Compile Include="Core\DatabaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\DatabaseModel.Designer.cs">
+    <Compile Include="Core\DatabaseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
@@ -169,11 +170,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EntityDeploy Include="View\DatabaseModel.edmx">
+    <EntityDeploy Include="Core\DatabaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DatabaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="View\DatabaseModel.edmx.diagram">
+    <None Include="Core\DatabaseModel.edmx.diagram">
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
@@ -181,12 +182,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="View\DatabaseModel.Context.tt">
+    <Content Include="Core\DatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DatabaseModel.Context.cs</LastGenOutput>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Content>
-    <Content Include="View\DatabaseModel.tt">
+    <Content Include="Core\DatabaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>

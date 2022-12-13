@@ -1,4 +1,5 @@
 ﻿using AppDB.View;
+using AppDB.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,25 @@ namespace AppDB
     /// </summary>
     public partial class MainWindow : Window
     {
+        public SupplementEntities Entities { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            InvoicesDataGrid.ItemsSource = new SupplementEntities().INVOICES.ToList();
+            Entities = new SupplementEntities();
+            InvoicesDataGrid.ItemsSource = Entities.INVOICES.ToList();
+        }
+
+        private void EditRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedInvoice = (sender as Button).DataContext as INVOICES;
+            EditingWindow editingWindow = new EditingWindow(selectedInvoice, this);
+            editingWindow.Show();
+        }
+
+        private void CreateRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddingWindow addingWindow = new AddingWindow();
+            addingWindow.Show();
         }
     }
 }

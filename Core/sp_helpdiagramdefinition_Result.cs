@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AppDB.View
+namespace AppDB.Core
 {
     using System;
     

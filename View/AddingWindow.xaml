@@ -6,7 +6,43 @@
         xmlns:local="clr-namespace:AppDB.View"
         mc:Ignorable="d"
         Title="AddingWindow" Height="450" Width="800">
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="ID"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="DATE OF INVOICE"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="PRODUCT ID"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="PURVEYOR ID"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="FORWARDER ID"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="SUPPLY TYPE ID"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="DELIVERY TONNAGE"/>
+        <Label Grid.Column="0" Grid.Row="7" Content="DELIVERY COST"/>
+
+
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="0"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="2"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="3"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="4"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="5"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="6"/>
+        <TextBox Foreground="{StaticResource Color-WhiteGreen}" Background="{StaticResource Color-Green}" Grid.Column="1" Grid.Row="7"/>
+        <Button Content="Save" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
+        <Button Content="Cancel" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"/>
     </Grid>
 </Window>
