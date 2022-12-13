@@ -5,5 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Менеджер базы данных" Height="450" Width="800">
-    <Grid/>
+    <Grid>
+        <DataGrid x:Name="InvoicesDataGrid" Background="Beige" 
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                  Grid.Row="1" ColumnWidth="*" Margin="5" IsSynchronizedWithCurrentItem="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="INVOICE_ID" Binding="{Binding INVOICE_ID}"/>
+                <DataGridTextColumn Header="DATE_OF_INVOICE" Binding="{Binding DATE_OF_INVOICE}"/>
+                <DataGridTextColumn Header="PRODUCT_ID" Binding="{Binding PRODUCT_ID}"/>
+                <DataGridTextColumn Header="PURVEYOR_ID" Binding="{Binding PURVEYOR_ID}"/>
+                <DataGridTextColumn Header="FORWARDER_ID" Binding="{Binding FORWARDER_ID}"/>
+                <DataGridTextColumn Header="SUPPLY_TYPE_ID" Binding="{Binding SUPPLY_TYPE_ID}"/>
+                <DataGridTextColumn Header="DELIVERY_TONNAGE" Binding="{Binding DELIVERY_TONNAGE}"/>
+                <DataGridTextColumn Header="DELIVERY_COST" Binding="{Binding DELIVERY_COST}"/>
+                
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </Window>

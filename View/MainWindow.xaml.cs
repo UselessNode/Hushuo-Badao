@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDB.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace AppDB
         public MainWindow()
         {
             InitializeComponent();
+            InvoicesDataGrid.ItemsSource = new SupplementEntities().INVOICES.ToList();
         }
     }
 }
