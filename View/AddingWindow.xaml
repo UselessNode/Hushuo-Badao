@@ -7,7 +7,7 @@
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="AddingWindow" Height="450" Width="800">
 
-    <Grid x:Name="EditingGrid">
+    <Grid x:Name="AddingGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -90,7 +90,7 @@
                  Grid.Column="1" Grid.Row="7"/>
 
         <Button x:Name="SaveButton" Content="Save" Click="SaveButton_Click"
-                HorizontalAlignment="Center" 
+                HorizontalAlignment="Center"
                 Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
         <Button x:Name="CancelButton" Content="Cancel" 
                 HorizontalAlignment="Center" 

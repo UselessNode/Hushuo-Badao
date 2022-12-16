@@ -39,7 +39,7 @@
                  Background="{StaticResource Color-Green}" 
                  Grid.Column="1" Grid.Row="0"/>
         <TextBox x:Name="TextBoxDate"
-                 Text="{Binding DATE_OF_INVOICE }"
+                 Text="{Binding DATE_OF_INVOICE, StringFormat=dd-MM-yyyy}"
                  Foreground="{StaticResource Color-WhiteGreen}" 
                  Background="{StaticResource Color-Green}" 
                  Grid.Column="1" Grid.Row="1"/>

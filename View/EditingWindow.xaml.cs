@@ -39,23 +39,39 @@ namespace AppDB.View
         }
 
         // Сбор данных с полей ввода
-        private void ValidateInput()
+        private int ValidateInput(Control control)
         {
-            _invoice.DATE_OF_INVOICE  = DateTime.Parse(TextBoxDate.Text);
-            _invoice.PRODUCT_ID       = ComboBoxProduct.SelectedIndex + 1;
-            _invoice.PURVEYOR_ID      = ComboBoxPurveyor.SelectedIndex + 1;
-            _invoice.FORWARDER_ID     = ComboBoxForwarder.SelectedIndex + 1;
-            _invoice.SUPPLY_TYPE_ID   = ComboBoxSupplyType.SelectedIndex + 1;
+            // Проверка типов TextBox и ComboBox
+            if (!(control is TextBox))
+                return -1;
+            else if (!(control is ComboBox))
+                return -1;
+
+            // Проверка на пустые значения
+            if (control is TextBox && String.IsNullOrEmpty((control as TextBox).Text) ||
+               control is ComboBox && (control as ComboBox).SelectedIndex == -1)
+                return 0;
+            // Чтение ввода и запись в новую накладную
+            _invoice.DATE_OF_INVOICE = DateTime.Parse(TextBoxDate.Text);
+            _invoice.PRODUCT_ID = ComboBoxProduct.SelectedIndex + 1;
+            _invoice.PURVEYOR_ID = ComboBoxPurveyor.SelectedIndex + 1;
+            _invoice.FORWARDER_ID = ComboBoxForwarder.SelectedIndex + 1;
+            _invoice.SUPPLY_TYPE_ID = ComboBoxSupplyType.SelectedIndex + 1;
             _invoice.DELIVERY_TONNAGE = Int16.Parse(TextBoxTonnage.Text);
-            _invoice.DELIVERY_COST    = Int32.Parse(TextBoxCost.Text);
+            _invoice.DELIVERY_COST = Int32.Parse(TextBoxCost.Text);
+            return 1;
         }
 
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ValidateInput();
+            foreach (Control item in EditingGrid.Children)
+            {
+                ValidateInput(item);
+            }
             //entities.INVOICES.Add(_invoice);
             database.SaveChanges();
+            Hide();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

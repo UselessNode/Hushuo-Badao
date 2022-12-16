@@ -3,34 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Менеджер базы данных" Height="800" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="26*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <DataGrid x:Name="InvoicesDataGrid" Background="Beige" 
-                  AutoGenerateColumns="False" CanUserAddRows="False" 
-                  IsReadOnly="True" ColumnWidth="Auto"
-                  Margin="5,5,5,5" IsSynchronizedWithCurrentItem="True"
-                  Grid.Row="0">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="UpdateRecordButton" Background="DarkSeaGreen" Click="UpdateRecordButton_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+    <StackPanel Orientation="Vertical">
+        <!--#region Поиск-->
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Label Content="Поиск: "/>
+            <Border>
+                <TextBox x:Name="SearchTextBox" Width="740"/>
+            </Border>
+        </StackPanel>
+        <!--#endregion-->
+        
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <!--#region Фильтрация-->
+            <Label Content="От: "/>
+            <Border>
+                <DatePicker x:Name="DatePickerStart" SelectedDateFormat="Short"/>
+            </Border>
+            <Label Content="До: "/>
+            <Border>
+                <DatePicker x:Name="DatePickerEnd" SelectedDateFormat="Short" SelectedDate="{x:Static sys:DateTime.Now}"/>
+            </Border>
+            <Button Content="Сброс" Style="{StaticResource ButtonStyle}"/>
+            <!--#endregion-->
+            <!--#region Кнопка добавления-->
+            <Button x:Name="CreateRecordButton" Style="{StaticResource ButtonStyle}"
+                HorizontalAlignment="Left" 
+                Content="Создать новую накладную" 
+                Click="CreateRecordButton_Click"/>
+            <!--#endregion-->
+        </StackPanel>
+        
 
+        <!--#region Таблица-->
+        <DataGrid x:Name="InvoicesDataGrid">
+            <DataGrid.Columns>
+                <!--#region Кнопка измнения-->
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="DeleteRecordButton" Background="OrangeRed" Click="DeleteRecordButton_Click"/>
+                            <Button x:Name="UpdateRecordButton" 
+                                    Style="{StaticResource EditRowButton}"
+                                    Click="UpdateRecordButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <!--#endregion-->
+                <!--#region Кнопка Удаления-->
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="DeleteRecordButton" 
+                                    Style="{StaticResource RemoveRowButton}"
+                                    Click="DeleteRecordButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--#endregion-->
 
                 <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
                 <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE}"/>
@@ -45,8 +76,6 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="CreateRecordButton" Content="Создать накладную" Padding="5" Margin="5"
-                HorizontalAlignment="Center" Click="CreateRecordButton_Click"
-                VerticalAlignment="Center" Grid.Row="1"/>
-    </Grid>
+        <!--#endregion-->
+    </StackPanel>
 </Window>

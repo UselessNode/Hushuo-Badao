@@ -3,20 +3,149 @@
 
 
 
-    <SolidColorBrush x:Key="Color-DarkGreen" Color="#223843"/>
-    <SolidColorBrush x:Key="Color-WhiteGreen" Color="#BFE8FC"/>
-    <SolidColorBrush x:Key="Color-Green" Color="#48778f"/>
+    <SolidColorBrush x:Key="Color-DarkBlue"     Color="#223843"/>
+    <SolidColorBrush x:Key="Color-WhiteBlue"    Color="#BFE8FC"/>
+    <SolidColorBrush x:Key="Color-Blue"         Color="#48778f"/>
     <!--<SolidColorBrush x:Key="Color-LightGreen" Color="#6eb6db"/>-->
     
-    <SolidColorBrush x:Key="Color-DarkOrange" Color="#6f3f32"/>
-    <SolidColorBrush x:Key="Color-WhiteOrange" Color="#D8B4A0"/>
-    <SolidColorBrush x:Key="Color-Orange" Color="#D77A61"/>
-    <!--<SolidColorBrush x:Key="Color-OrangeHight" Color="#EB5E28"/>-->
+    <SolidColorBrush x:Key="Color-DarkOrange"   Color="#6f3f32"/>
+    <SolidColorBrush x:Key="Color-WhiteOrange"  Color="#D8B4A0"/>
+    <SolidColorBrush x:Key="Color-Orange"       Color="#D77A61"/>
+
+    <SolidColorBrush x:Key="Color-Black"        Color="#252422"/>
+    <SolidColorBrush x:Key="Color-Paper"        Color="#FFFCF2"/>
+    <SolidColorBrush x:Key="Color-Grey"         Color="#CCC5B9"/>
+    <SolidColorBrush x:Key="Color-Brown"        Color="#403D39"/>
+
+    <SolidColorBrush x:Key="Color-DarkRed"      Color="#43291f"/>
+    <SolidColorBrush x:Key="Color-Red"          Color="#bc4749"/>
+    <SolidColorBrush x:Key="Color-TextOnRed"     Color="#F2E8CF"/>
+
+    <SolidColorBrush x:Key="Color-DarkGreen"    Color="#31572c"/>
+    <SolidColorBrush x:Key="Color-Green"        Color="#6A994E"/>
+    <SolidColorBrush x:Key="Color-TextOnGreen"  Color="#513b56"/>
+
     
-    <SolidColorBrush x:Key="Color-Black" Color="#252422"/>
-    <SolidColorBrush x:Key="Color-Paper" Color="#FFFCF2"/>
-    <SolidColorBrush x:Key="Color-Grey" Color="#CCC5B9"/>
-    <SolidColorBrush x:Key="Color-Brown" Color="#403D39"/>
+
+    
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="auto"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource Color-Brown}"/>
+        <Setter Property="Foreground" Value="{StaticResource Color-Paper}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="RemoveRowButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
+        
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Content" Value="X"/>
+        <Setter Property="Width" Value="40"/>
+        
+        <Setter Property="Foreground" Value="{StaticResource Color-TextOnRed}"/>
+        <Setter Property="Background" Value="{StaticResource Color-Red}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Color-DarkRed}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="EditRowButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Content" Value="✏️"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        
+        <Setter Property="Foreground" Value="{StaticResource Color-WhiteBlue}"/>
+        <Setter Property="Background" Value="{StaticResource Color-Green}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource Color-DarkGreen}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridCell">
+
+        <Setter Property="Width" Value="auto"/>
+
+        <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+        <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+                <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+        <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource Color-Grey}"/>
+                <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGrid">
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        
+    </Style>
+
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color-Grey}"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    
 
     <!--https://coolors.co/252422-223843-403d39-6f3f32-48778f-d77a61-d8b4a0-ccc5b9-bfe8fc-fffcf2-->
 </ResourceDictionary>
