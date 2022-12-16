@@ -4,78 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
-        Title="Менеджер базы данных" Height="800" Width="800">
-    <StackPanel Orientation="Vertical">
-        <!--#region Поиск-->
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <Label Content="Поиск: "/>
-            <Border>
-                <TextBox x:Name="SearchTextBox" Width="740"/>
-            </Border>
-        </StackPanel>
-        <!--#endregion-->
-        
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <!--#region Фильтрация-->
-            <Label Content="От: "/>
-            <Border>
-                <DatePicker x:Name="DatePickerStart" SelectedDateFormat="Short"/>
-            </Border>
-            <Label Content="До: "/>
-            <Border>
-                <DatePicker x:Name="DatePickerEnd" SelectedDateFormat="Short" SelectedDate="{x:Static sys:DateTime.Now}"/>
-            </Border>
-            <Button Content="Сброс" Style="{StaticResource ButtonStyle}"/>
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="Менеджер базы данных" Height="800" Width="1200">
+    <StackPanel Orientation="Vertical" Background="{StaticResource Color-Paper}">
+        <DockPanel>
+            <!--#region Поиск-->
+            <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged"/>
             <!--#endregion-->
-            <!--#region Кнопка добавления-->
-            <Button x:Name="CreateRecordButton" Style="{StaticResource ButtonStyle}"
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" Margin="5">
+                <!--#region Фильтрация-->
+                <Label Content="От: "/>
+                <DatePicker x:Name="DatePickerStart" SelectedDateFormat="Short" SelectedDateChanged="DatePickerStart_SelectedDateChanged"/>
+                <Label Content="До:" />
+                <DatePicker x:Name="DatePickerEnd" SelectedDateFormat="Short" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="DatePickerEnd_SelectedDateChanged"/>
+                <Button Content="Сброс" x:Name="ResetSearchButton"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="ResetSearchButton_Click"/>
+                <!--#endregion-->
+                <!--#region Кнопка добавления-->
+                <Button x:Name="CreateRecordButton" Style="{StaticResource ButtonStyle}"
                 HorizontalAlignment="Left" 
                 Content="Создать новую накладную" 
                 Click="CreateRecordButton_Click"/>
-            <!--#endregion-->
+                <!--#endregion-->
         </StackPanel>
         
+              
 
         <!--#region Таблица-->
-        <DataGrid x:Name="InvoicesDataGrid">
-            <DataGrid.Columns>
-                <!--#region Кнопка измнения-->
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="UpdateRecordButton" 
+        <StackPanel Orientation="Vertical">
+            <DataGrid x:Name="InvoicesDataGrid">
+                <DataGrid.Columns>
+                    <!--#region Кнопка измнения-->
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="UpdateRecordButton" 
                                     Style="{StaticResource EditRowButton}"
                                     Click="UpdateRecordButton_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <!--#endregion-->
-                <!--#region Кнопка Удаления-->
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="DeleteRecordButton" 
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--#endregion-->
+                    <!--#region Кнопка Удаления-->
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="DeleteRecordButton" 
                                     Style="{StaticResource RemoveRowButton}"
                                     Click="DeleteRecordButton_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <!--#endregion-->
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--#endregion-->
 
-                <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
-                <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE}"/>
-                <DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>
-                <DataGridTextColumn Header="Поставщик"      Binding="{Binding PURVEYORS.COMPANY_NAME}"/>
-                <DataGridTextColumn Header="Экспедитор"     Binding="{Binding FORWARDERS.FORWARDER_NAME}"/>
-                <DataGridTextColumn Header="Тип поставки"   Binding="{Binding SUPPLY_TYPES.SUPPLY_TYPE_NAME}"/>
-                <DataGridTextColumn Header="Тоннаж"         Binding="{Binding DELIVERY_TONNAGE}"/>
-                <DataGridTextColumn Header="Стоимость"      Binding="{Binding DELIVERY_COST}"/>
+                    <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
+                    <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE, StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>
+                    <DataGridTextColumn Header="Поставщик"      Binding="{Binding PURVEYORS.COMPANY_NAME}"/>
+                    <DataGridTextColumn Header="Экспедитор"     Binding="{Binding FORWARDERS.FORWARDER_NAME}"/>
+                    <DataGridTextColumn Header="Тип поставки"   Binding="{Binding SUPPLY_TYPES.SUPPLY_TYPE_NAME}"/>
+                    <DataGridTextColumn Header="Тоннаж"         Binding="{Binding DELIVERY_TONNAGE}"/>
+                    <DataGridTextColumn Header="Стоимость"      Binding="{Binding DELIVERY_COST}"/>
 
 
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
         <!--#endregion-->
     </StackPanel>
 </Window>

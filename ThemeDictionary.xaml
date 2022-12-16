@@ -7,7 +7,7 @@
     <SolidColorBrush x:Key="Color-WhiteBlue"    Color="#BFE8FC"/>
     <SolidColorBrush x:Key="Color-Blue"         Color="#48778f"/>
     <!--<SolidColorBrush x:Key="Color-LightGreen" Color="#6eb6db"/>-->
-    
+
     <SolidColorBrush x:Key="Color-DarkOrange"   Color="#6f3f32"/>
     <SolidColorBrush x:Key="Color-WhiteOrange"  Color="#D8B4A0"/>
     <SolidColorBrush x:Key="Color-Orange"       Color="#D77A61"/>
@@ -25,9 +25,9 @@
     <SolidColorBrush x:Key="Color-Green"        Color="#6A994E"/>
     <SolidColorBrush x:Key="Color-TextOnGreen"  Color="#513b56"/>
 
-    
 
-    
+
+
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Width" Value="auto"/>
         <Setter Property="Height" Value="auto"/>
@@ -42,15 +42,22 @@
                 <Setter Property="CornerRadius" Value="5" />
             </Style>
         </Style.Resources>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Color-Brown}"/>
+            </Trigger>
+        </Style.Triggers>
+
     </Style>
 
     <Style x:Key="RemoveRowButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
-        
+
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Content" Value="X"/>
         <Setter Property="Width" Value="40"/>
-        
-        <Setter Property="Foreground" Value="{StaticResource Color-TextOnRed}"/>
+
+        <Setter Property="Foreground" Value="{StaticResource Color-Paper}"/>
         <Setter Property="Background" Value="{StaticResource Color-Red}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -61,11 +68,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource Color-DarkRed}"/>
+                <Setter Property="Foreground" Value="{StaticResource Color-TextOnRed}"/>
             </Trigger>
         </Style.Triggers>
+
     </Style>
 
     <Style x:Key="EditRowButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
@@ -73,8 +83,8 @@
         <Setter Property="Content" Value="✏️"/>
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
-        
-        <Setter Property="Foreground" Value="{StaticResource Color-WhiteBlue}"/>
+
+        <Setter Property="Foreground" Value="{StaticResource Color-Paper}"/>
         <Setter Property="Background" Value="{StaticResource Color-Green}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -88,6 +98,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource Color-DarkGreen}"/>
+                <Setter Property="Foreground" Value="{StaticResource Color-Paper}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -96,13 +107,13 @@
 
         <Setter Property="Width" Value="auto"/>
 
-        <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
         <Setter Property="BorderBrush" Value="{x:Null}" />
 
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+                <Setter Property="Background" Value="White"/>
                 <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
                 <Setter Property="BorderBrush" Value="{x:Null}" />
 
@@ -111,12 +122,12 @@
     </Style>
 
     <Style TargetType="DataGridRow">
-        <Setter Property="Background" Value="{StaticResource Color-Grey}" />
+        <Setter Property="Background" Value="White" />
         <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource Color-Grey}"/>
+                <Setter Property="Background" Value="White"/>
                 <Setter Property="Foreground" Value="{StaticResource Color-Black}"/>
                 <Setter Property="BorderBrush" Value="{x:Null}" />
             </Trigger>
@@ -130,22 +141,64 @@
         <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="FontFamily" Value="Bahnschrift"/>
-        
-    </Style>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="MaxHeight" Value="500"/>
 
+    </Style>
 
     <Style TargetType="Label">
         <Setter Property="FontFamily" Value="Bahnschrift"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style TargetType="DatePicker">
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Color-Grey}"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color-Brown}"/>
         <Setter Property="FontFamily" Value="Bahnschrift"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
-    
+
+    <Style TargetType="TextBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Width" Value="Auto"/>
+        
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="3" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Width" Value="Auto"/>
+        
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </Style.Resources>
+    </Style>
 
     <!--https://coolors.co/252422-223843-403d39-6f3f32-48778f-d77a61-d8b4a0-ccc5b9-bfe8fc-fffcf2-->
 </ResourceDictionary>
