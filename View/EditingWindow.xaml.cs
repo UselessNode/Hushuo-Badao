@@ -60,8 +60,8 @@ namespace AppDB.View
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             ValidateInput();
-            //entities.INVOICES.Add(_invoice);
             database.SaveChanges();
+            _mainWindow.ReadData();
             Hide();
         }
 
@@ -73,10 +73,10 @@ namespace AppDB.View
             ComboBoxForwarder.ItemsSource = database.FORWARDERS.ToList();
             ComboBoxSupplyType.ItemsSource = database.SUPPLY_TYPES.ToList();
             // Индексы при редактировании
-            ComboBoxProduct.SelectedIndex = (int)_invoice.PRODUCT_ID - 1;
-            ComboBoxPurveyor.SelectedIndex = (int)_invoice.PURVEYOR_ID - 1;
-            ComboBoxForwarder.SelectedIndex = (int)_invoice.FORWARDER_ID - 1;
-            ComboBoxSupplyType.SelectedIndex = (int)_invoice.SUPPLY_TYPE_ID - 1;
+            ComboBoxProduct.SelectedIndex = _invoice.PRODUCT_ID is null ? -1 : (int)_invoice.PRODUCT_ID - 1;
+            ComboBoxPurveyor.SelectedIndex = _invoice.PURVEYOR_ID is null? -1 : (int)_invoice.PURVEYOR_ID - 1;
+            ComboBoxForwarder.SelectedIndex = _invoice.FORWARDER_ID is null ? -1 : (int)_invoice.FORWARDER_ID - 1;
+            ComboBoxSupplyType.SelectedIndex = _invoice.SUPPLY_TYPE_ID is null ? -1 : (int)_invoice.SUPPLY_TYPE_ID - 1;
         }
     }
 }
