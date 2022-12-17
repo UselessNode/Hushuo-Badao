@@ -23,20 +23,36 @@ namespace AppDB
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Контекст базы данных
+        /// </summary>
         public SupplementEntities Entities { get; set; }
 
+
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             ReadData();
         }
 
+
+        /// <summary>
+        /// Создание новой записи в таблице [Supplement].[INVOICE] по нажатию кнопки CreateRecordButton
+        /// </summary>
+        /// <param name="sender">Кнопка добавления записи: CreateRecordButton</param>
+        /// <param name="e"></param>
         public void CreateRecordButton_Click(object sender, RoutedEventArgs e)
         {
             AddingWindow addingWindow = new AddingWindow(this);
             addingWindow.Show();
         }
 
+        /// <summary>
+        /// Чтение данных из базы данных
+        /// </summary>
         public void ReadData()
         {
             Entities = new SupplementEntities();
@@ -44,6 +60,11 @@ namespace AppDB
             Title = $"База данных";
         }
 
+        /// <summary>
+        /// Обновление данных по нажатию кнопки
+        /// </summary>
+        /// <param name="sender">Кнопка обновить: UpdateRecordButton</param>
+        /// <param name="e"></param>
         public void UpdateRecordButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedInvoice = (sender as Button).DataContext as INVOICES;
@@ -51,6 +72,11 @@ namespace AppDB
             editingWindow.Show();
         }
 
+        /// <summary>
+        /// Удаление данных по нажатию кнопки удалить
+        /// </summary>
+        /// <param name="sender">Кнопка удалить: DeleteRecordButton</param>
+        /// <param name="e"> </param>
         public void DeleteRecordButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedInvoice = ((sender as Button).DataContext as INVOICES);
@@ -83,32 +109,30 @@ namespace AppDB
             ReadData();
         }
 
-        private void DatePickerEnd_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DatePickerEnd.SelectedDate != null && DatePickerStart.SelectedDate != null)
             {
                 if(DatePickerEnd.SelectedDate > DatePickerStart.SelectedDate)
                 {
-                    var start = DatePickerStart.SelectedDate;
-                    var end = DatePickerEnd.SelectedDate;
                     //MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}","ДА",
                     //    MessageBoxButton.OK,MessageBoxImage.Information);
-
+                    var start = DatePickerStart.SelectedDate;
+                    var end = DatePickerEnd.SelectedDate;
                     var filteredData = Entities.INVOICES.Where(x => x.DATE_OF_INVOICE > start && x.DATE_OF_INVOICE < end).ToList();
-
                     InvoicesDataGrid.ItemsSource = filteredData;
                 }
-                else
-                {
-                    //MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}", "НЕТ",
-                    //    MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                //else
+                //{
+                //    MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}", "НЕТ",
+                //        MessageBoxButton.OK, MessageBoxImage.Error);
+                //}
             }
         }
 
-        private void DatePickerStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            Application.Current.Shutdown();
         }
     }
 }

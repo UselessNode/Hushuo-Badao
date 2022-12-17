@@ -1,40 +1,62 @@
 ﻿<Window x:Class="AppDB.MainWindow"
+        x:Name="AppMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" WindowState="Maximized"
-        Title="Менеджер базы данных" Height="800" Width="1200">
+        Closing="Window_Closing"
+        Title="Менеджер базы данных" 
+        SizeToContent="WidthAndHeight"
+        MinHeight="760" MinWidth="580">
+    <Window.Resources>
+        <DataGridTemplateColumn x:Key="CustomColumn">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock TextWrapping="WrapWithOverflow"/>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+    </Window.Resources>
     <StackPanel Orientation="Vertical" Background="{StaticResource Color-Paper}">
         <DockPanel>
             <!--#region Поиск-->
             <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged"/>
             <!--#endregion-->
         </DockPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-                <!--#region Фильтрация-->
-                <Label Content="От: "/>
-                <DatePicker x:Name="DatePickerStart" SelectedDateFormat="Short" SelectedDateChanged="DatePickerStart_SelectedDateChanged"/>
-                <Label Content="До:" />
-                <DatePicker x:Name="DatePickerEnd" SelectedDateFormat="Short" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="DatePickerEnd_SelectedDateChanged"/>
-                <Button Content="Сброс" x:Name="ResetSearchButton"
-                        Style="{StaticResource ButtonStyle}"
-                        Click="ResetSearchButton_Click"/>
-                <!--#endregion-->
-                <!--#region Кнопка добавления-->
-                <Button x:Name="CreateRecordButton" Style="{StaticResource ButtonStyle}"
-                HorizontalAlignment="Left" 
-                Content="Создать новую накладную" 
-                Click="CreateRecordButton_Click"/>
-                <!--#endregion-->
+        <StackPanel Orientation="Horizontal" Margin="5" Background="White">
+            <!--#region Фильтрация-->
+            <Label Content="От: "/>
+            <DatePicker x:Name="DatePickerStart" 
+                        SelectedDateFormat="Short" 
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+            <Separator Style="{StaticResource VerticalSeparatorStyle}"/>
+            <Label Content="До:" />
+            <DatePicker x:Name="DatePickerEnd" 
+                        SelectedDateFormat="Short" 
+                        SelectedDate="{x:Static sys:DateTime.Now}" 
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+            <Separator Style="{StaticResource VerticalSeparatorStyle}"/>
+            <Button x:Name="ResetSearchButton"
+                    Content="Сброс" 
+                    Style="{StaticResource ButtonStyle}"
+                    Click="ResetSearchButton_Click"/>
+            <!--#endregion-->
+            <!--#region Кнопка добавления-->
+            <Button x:Name="CreateRecordButton" 
+                    Style="{StaticResource ButtonStyle}"
+                    HorizontalAlignment="Left" 
+                    Content="Создать новую накладную" 
+                    Click="CreateRecordButton_Click"/>
+            <!--#endregion-->
         </StackPanel>
         
               
 
         <!--#region Таблица-->
-        <StackPanel Orientation="Vertical">
-            <DataGrid x:Name="InvoicesDataGrid">
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <DataGrid x:Name="InvoicesDataGrid" VerticalAlignment="Stretch">
                 <DataGrid.Columns>
                     <!--#region Кнопка измнения-->
                     <DataGridTemplateColumn>
@@ -59,11 +81,33 @@
                     </DataGridTemplateColumn>
                     <!--#endregion-->
 
+
                     <DataGridTextColumn Header="ID"             Binding="{Binding INVOICE_ID}"/>
                     <DataGridTextColumn Header="Дата"           Binding="{Binding DATE_OF_INVOICE, StringFormat=dd.MM.yyyy}"/>
-                    <DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>
-                    <DataGridTextColumn Header="Поставщик"      Binding="{Binding PURVEYORS.COMPANY_NAME}"/>
-                    <DataGridTextColumn Header="Экспедитор"     Binding="{Binding FORWARDERS.FORWARDER_NAME}"/>
+                    <DataGridTemplateColumn Header="Продукт">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding PRODUCTS.PRODUCT_NAME}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridTextColumn Header="Продукт"        Binding="{Binding PRODUCTS.PRODUCT_NAME}"/>-->
+                    <DataGridTemplateColumn Header="Поставщик">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding PURVEYORS.COMPANY_NAME}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridTextColumn Header="Поставщик"      Binding="{Binding PURVEYORS.COMPANY_NAME}"/>-->
+                    <DataGridTemplateColumn Header="Экспедитор">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding FORWARDERS.FORWARDER_NAME}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridTextColumn Header="Экспедитор"     Binding="{Binding FORWARDERS.FORWARDER_NAME}"/>-->
                     <DataGridTextColumn Header="Тип поставки"   Binding="{Binding SUPPLY_TYPES.SUPPLY_TYPE_NAME}"/>
                     <DataGridTextColumn Header="Тоннаж"         Binding="{Binding DELIVERY_TONNAGE}"/>
                     <DataGridTextColumn Header="Стоимость"      Binding="{Binding DELIVERY_COST}"/>
@@ -73,7 +117,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-        </StackPanel>
+        </Grid>
         <!--#endregion-->
     </StackPanel>
 </Window>

@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" WindowStyle="SingleBorderWindow"
-        Title="Редактирование накладной" Height="550" Width="650">
+        Title="Редактирование накладной" 
+        SizeToContent="WidthAndHeight"
+        MinHeight="450" MaxHeight="450" 
+        MinWidth="400"  MaxWidth="900">
     <Grid x:Name="EditingGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,7 +25,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="ID"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="ID" Visibility="Collapsed"/>
         <Label Grid.Column="0" Grid.Row="1" Content="DATE OF INVOICE"/>
         <Label Grid.Column="0" Grid.Row="2" Content="PRODUCT ID"/>
         <Label Grid.Column="0" Grid.Row="3" Content="PURVEYOR ID"/>
@@ -33,10 +36,16 @@
 
         <TextBox x:Name="TextBoxID" 
                  Text="{Binding INVOICE_ID}"
+                 Visibility="Collapsed"
                  Grid.Column="1" Grid.Row="0"/>
-        <TextBox x:Name="TextBoxDate"
-                 Text="{Binding DATE_OF_INVOICE, StringFormat=dd.MM.yyyy}"
-                 Grid.Column="1" Grid.Row="1"/>
+        <DatePicker x:Name="TextBoxDate"
+                    Text="{Binding DATE_OF_INVOICE }"
+                    Height="40"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Grid.Column="1" Grid.Row="1"/>
         <ComboBox x:Name="ComboBoxProduct"      
                   DisplayMemberPath="PRODUCT_NAME"
                   Grid.Column="1" Grid.Row="2">

@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppDB.View"
         mc:Ignorable="d" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner"
-        Title="Добавление накладной" Height="Auto" Width="400">
+        Title="Добавление накладной" 
+        SizeToContent="WidthAndHeight"
+        MinHeight="450" MaxHeight="450" 
+        MinWidth="400"  MaxWidth="900">
 
     <Grid x:Name="AddingGrid">
         <Grid.ColumnDefinitions>
@@ -24,8 +27,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="ID"/>
-        <Label Grid.Column="0" Grid.Row="1" Content="DATE OF INVOICE"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="ID" Visibility="Collapsed"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="DATE OF INVOICE" />
         <Label Grid.Column="0" Grid.Row="2" Content="PRODUCT ID"/>
         <Label Grid.Column="0" Grid.Row="3" Content="PURVEYOR ID"/>
         <Label Grid.Column="0" Grid.Row="4" Content="FORWARDER ID"/>
@@ -33,19 +36,25 @@
         <Label Grid.Column="0" Grid.Row="6" Content="DELIVERY TONNAGE"/>
         <Label Grid.Column="0" Grid.Row="7" Content="DELIVERY COST"/>
 
-        <TextBox x:Name="TextBoxID" 
-                 Text="{Binding INVOICE_ID}"
-                 Grid.Column="1" Grid.Row="0"/>
-        <TextBox x:Name="TextBoxDate"
-                 Text="{Binding DATE_OF_INVOICE }"
-                 Grid.Column="1" Grid.Row="1"/>
+        <Label x:Name="TextBoxID"
+            Visibility="Collapsed"
+            Content="{Binding INVOICE_ID}"
+            Grid.Column="1" Grid.Row="0"/>
+        <DatePicker x:Name="TextBoxDate"
+                    Text="{Binding DATE_OF_INVOICE }"
+                    Height="40"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Grid.Column="1" Grid.Row="1"/>
         <ComboBox x:Name="ComboBoxProduct"      
-                  DisplayMemberPath="PRODUCT_NAME"
-                  Grid.Column="1" Grid.Row="2">
+            DisplayMemberPath="PRODUCT_NAME"
+            Grid.Column="1" Grid.Row="2">
         </ComboBox>
         <ComboBox x:Name="ComboBoxPurveyor"     
-                  DisplayMemberPath="COMPANY_NAME"
-                  Grid.Column="1" Grid.Row="3">
+            DisplayMemberPath="COMPANY_NAME"
+            Grid.Column="1" Grid.Row="3">
         </ComboBox>
         <ComboBox x:Name="ComboBoxForwarder"    
                   DisplayMemberPath="FORWARDER_NAME"
@@ -66,7 +75,7 @@
                 Content="Добавить" 
                 Click="SaveButton_Click" 
                 Style="{StaticResource ButtonStyle}"
-                Background="#3A9B3A" 
+                Background="{StaticResource Color-Green}" 
                 Grid.ColumnSpan="2" Grid.Row="8"/>
 
     </Grid>
