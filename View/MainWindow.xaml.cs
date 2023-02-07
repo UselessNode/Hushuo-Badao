@@ -1,5 +1,5 @@
-﻿using AppDB.View;
-using AppDB.Core;
+﻿using AppDB.Data;
+using AppDB.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,79 +14,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.Entity;
 
 namespace AppDB
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Контекст базы данных
-        /// </summary>
-        public SupplementEntities Entities { get; set; }
+        public DatabaseEntities Entities;
+        public List<Invoice> TableItemSource;
 
-
-        /// <summary>
-        /// Конструктор класса
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             ReadData();
         }
 
-
-        /// <summary>
-        /// Создание новой записи в таблице [Supplement].[INVOICE] по нажатию кнопки CreateRecordButton
-        /// </summary>
-        /// <param name="sender">Кнопка добавления записи: CreateRecordButton</param>
-        /// <param name="e"></param>
         public void CreateRecordButton_Click(object sender, RoutedEventArgs e)
         {
             AddingWindow addingWindow = new AddingWindow(this);
             addingWindow.Show();
         }
 
-        /// <summary>
-        /// Чтение данных из базы данных
-        /// </summary>
         public void ReadData()
         {
-            Entities = new SupplementEntities();
-            InvoicesDataGrid.ItemsSource = Entities.INVOICES.ToList();
-            Title = $"База данных";
-        }
-
-        /// <summary>
-        /// Обновление данных по нажатию кнопки
-        /// </summary>
-        /// <param name="sender">Кнопка обновить: UpdateRecordButton</param>
-        /// <param name="e"></param>
-        public void UpdateRecordButton_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedInvoice = (sender as Button).DataContext as INVOICES;
-            EditingWindow editingWindow = new EditingWindow(selectedInvoice, this);
-            editingWindow.Show();
-        }
-
-        /// <summary>
-        /// Удаление данных по нажатию кнопки удалить
-        /// </summary>
-        /// <param name="sender">Кнопка удалить: DeleteRecordButton</param>
-        /// <param name="e"> </param>
-        public void DeleteRecordButton_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedInvoice = ((sender as Button).DataContext as INVOICES);
-            if (MessageBox.Show($"Вы уверены, что хотите удалить запись под номером {selectedInvoice.INVOICE_ID}?",
-                "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                Entities.INVOICES.Remove(selectedInvoice);
-                Entities.SaveChanges();
-                ReadData();
-            }
+            Entities = new();
+            InvoicesDataGrid.ItemsSource = Entities.Invoice.ToList();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -94,12 +45,31 @@ namespace AppDB
             var input = (sender as TextBox).Text.ToLower();
             if (!(String.IsNullOrEmpty(input)))
             {
-                int resultCount = Entities.INVOICES.Count(x => x.PRODUCTS.PRODUCT_NAME.Contains(input));
-                InvoicesDataGrid.ItemsSource = Entities.INVOICES.Where(x => x.PRODUCTS.PRODUCT_NAME.Contains(input)).ToList();
-                Title = $"База данных | Поиск: {input} | Результатов: {resultCount} из {Entities.INVOICES.ToList().Count()}";
+                //int resultCount = Entities.Invoice.Count(x => x.ProductId.PRODUCT_NAME.Contains(input));
+                TableItemSource = Entities.Invoice.Where(x => x.Product.Name.Contains(input)).ToList();
+                //Title = $"База данных | Поиск: {input} | Результатов: {resultCount} из {Entities.INVOICES.ToList().Count()}";
             }
             else
                 ReadData();
+        }
+
+        public void UpdateRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedInvoice = (sender as Button).DataContext as Invoice;
+            EditingWindow editingWindow = new EditingWindow(selectedInvoice, this);
+            editingWindow.Show();
+        }
+
+        public void DeleteRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedInvoice = ((sender as Button).DataContext as Invoice);
+            if (MessageBox.Show($"Вы уверены, что хотите удалить запись под номером {selectedInvoice.Id}?",
+                "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Entities.Invoice.Remove(selectedInvoice);
+                Entities.SaveChanges();
+                ReadData();
+            }
         }
 
         private void ResetSearchButton_Click(object sender, RoutedEventArgs e)
@@ -119,8 +89,8 @@ namespace AppDB
                     //    MessageBoxButton.OK,MessageBoxImage.Information);
                     var start = DatePickerStart.SelectedDate;
                     var end = DatePickerEnd.SelectedDate;
-                    var filteredData = Entities.INVOICES.Where(x => x.DATE_OF_INVOICE > start && x.DATE_OF_INVOICE < end).ToList();
-                    InvoicesDataGrid.ItemsSource = filteredData;
+                    var filteredData = Entities.Invoice.Where(x => x.DepartureDate > start && x.DepartureDate < end).ToList();
+                    TableItemSource = filteredData;
                 }
                 //else
                 //{

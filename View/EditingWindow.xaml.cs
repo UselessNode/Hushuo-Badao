@@ -1,4 +1,4 @@
-﻿using AppDB.Core;
+﻿using AppDB.Data;
 using AppDB.View;
 using System;
 using System.Collections.Generic;
@@ -18,23 +18,15 @@ using System.Windows.Shapes;
 
 namespace AppDB.View
 {
-    /// <summary>
-    /// Логика взаимодействия для EditingWindow.xaml
-    /// </summary>
     public partial class EditingWindow : Window
     {
 
-        INVOICES _invoice; // Выбранная для изменения накладная
+        Invoice _invoice; // Выбранная для изменения накладная
         MainWindow _mainWindow; // Главная страница
 
-        SupplementEntities database;
+        DatabaseEntities database;
 
-        /// <summary>
-        /// Конструктор окна обновления записи
-        /// </summary>
-        /// <param name="invoice">Ссылка типа INVOICE на редактируемую запись</param>
-        /// <param name="mainWindow">Ссылка на главное окно</param>
-        public EditingWindow(INVOICES invoice, MainWindow mainWindow)
+        public EditingWindow(Invoice invoice, MainWindow mainWindow)
         {
             InitializeComponent();
             _invoice = invoice;
@@ -47,13 +39,12 @@ namespace AppDB.View
         private void ValidateInput()
         {
             // Чтение ввода и запись в новую накладную
-            _invoice.DATE_OF_INVOICE = String.IsNullOrEmpty(TextBoxDate.Text) ? DateTime.Now : DateTime.Parse(TextBoxDate.Text);
-            _invoice.PRODUCT_ID = ComboBoxProduct.SelectedIndex == -1 ? null : ComboBoxProduct.SelectedIndex + 1;
-            _invoice.PURVEYOR_ID = ComboBoxPurveyor.SelectedIndex == -1 ? null : ComboBoxPurveyor.SelectedIndex + 1;
-            _invoice.FORWARDER_ID = ComboBoxForwarder.SelectedIndex == -1 ? null : ComboBoxForwarder.SelectedIndex + 1;
-            _invoice.SUPPLY_TYPE_ID = ComboBoxSupplyType.SelectedIndex == -1 ? null : ComboBoxSupplyType.SelectedIndex + 1;
-            _invoice.DELIVERY_COST = String.IsNullOrEmpty(TextBoxCost.Text) ? 0 : int.Parse(TextBoxCost.Text);
-            _invoice.DELIVERY_TONNAGE = String.IsNullOrEmpty(TextBoxTonnage.Text) ? 0 : int.Parse(TextBoxTonnage.Text);
+            //_invoice.ArrivalDate = 
+            _invoice.DepartureDate = String.IsNullOrEmpty(TextBoxDate.Text) ? DateTime.Now : DateTime.Parse(TextBoxDate.Text);
+            _invoice.ProductId = ComboBoxProduct.SelectedIndex == -1 ? null : ComboBoxProduct.SelectedIndex + 1;
+            _invoice.SupplierId = ComboBoxPurveyor.SelectedIndex == -1 ? null : ComboBoxPurveyor.SelectedIndex + 1;
+            _invoice.ForwarderId = ComboBoxForwarder.SelectedIndex == -1 ? null : ComboBoxForwarder.SelectedIndex + 1;
+            _invoice.Cost = String.IsNullOrEmpty(TextBoxCost.Text) ? 0 : int.Parse(TextBoxCost.Text);
         }
 
 
@@ -68,15 +59,15 @@ namespace AppDB.View
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Инициализация данных ComboBox'ов
-            ComboBoxProduct.ItemsSource = database.PRODUCTS.ToList();
-            ComboBoxPurveyor.ItemsSource = database.PURVEYORS.ToList();
-            ComboBoxForwarder.ItemsSource = database.FORWARDERS.ToList();
-            ComboBoxSupplyType.ItemsSource = database.SUPPLY_TYPES.ToList();
+            ComboBoxProduct.ItemsSource = database.Product.ToList();
+            ComboBoxPurveyor.ItemsSource = database.Supplier.ToList();
+            ComboBoxForwarder.ItemsSource = database.Forwarder.ToList();
+            
             // Индексы при редактировании
-            ComboBoxProduct.SelectedIndex = _invoice.PRODUCT_ID is null ? -1 : (int)_invoice.PRODUCT_ID - 1;
-            ComboBoxPurveyor.SelectedIndex = _invoice.PURVEYOR_ID is null? -1 : (int)_invoice.PURVEYOR_ID - 1;
-            ComboBoxForwarder.SelectedIndex = _invoice.FORWARDER_ID is null ? -1 : (int)_invoice.FORWARDER_ID - 1;
-            ComboBoxSupplyType.SelectedIndex = _invoice.SUPPLY_TYPE_ID is null ? -1 : (int)_invoice.SUPPLY_TYPE_ID - 1;
+            ComboBoxProduct.SelectedIndex = _invoice.ProductId is null ? -1 : (int)_invoice.ProductId;
+            ComboBoxPurveyor.SelectedIndex = _invoice.SupplierId is null? -1 : (int)_invoice.SupplierId;
+            ComboBoxForwarder.SelectedIndex = _invoice.ForwarderId is null ? -1 : (int)_invoice.ForwarderId;
+            
         }
     }
 }
