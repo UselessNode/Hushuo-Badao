@@ -20,7 +20,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-
         <materialDesign:ColorZone Mode="PrimaryDark">
             <StackPanel Margin="15,25" Orientation="Vertical">
                 <DockPanel>
@@ -92,7 +91,6 @@
                 </DockPanel>
             </StackPanel>
         </materialDesign:ColorZone>
-
         <DataGrid
             x:Name="InvoicesDataGrid"
             Grid.Row="1"

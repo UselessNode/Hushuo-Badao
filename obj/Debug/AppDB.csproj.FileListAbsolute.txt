@@ -5,7 +5,6 @@ C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\EditingWindow.baml
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\App.baml
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\AddingWindow.g.cs
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\EditingWindow.g.cs
-C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\InvoiceTable.g.cs
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\MainWindow.g.cs
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\App.g.cs
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\AppDB_Content.g.cs
@@ -42,7 +41,6 @@ C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\tr\Microsoft.VisualStudio.TestPl
 C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\AddingWindow.baml
-C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\InvoiceTable.baml
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\MainWindow.baml
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\AppDB.g.resources
 C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\AppDB.Properties.Resources.resources
@@ -59,3 +57,5 @@ C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\Node\Desktop\Proj\Course\src\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\Authorization.g.cs
+C:\Users\Node\Desktop\Proj\Course\src\obj\Debug\View\Authorization.baml
