@@ -1,30 +1,26 @@
 ﻿using AppDB.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AppDB.DataView
 {
 
-    class DatabaseManager
+    class DatabaseManager : INotifyPropertyChanged
     {
-        public DatabaseEntities Entities { get; set; }
-        public List<Invoice> Invoices { get; set; }
-
-        public DatabaseManager()
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Entities = new DatabaseEntities();
+            if(PropertyChanged != null) 
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); 
         }
 
-        List<Invoice> ReadData()
-        {
-            return Invoices;
-            //List<Invoice> list = new List<Invoice>();
-            //list = Entities.Invoice.ToList();
-            //return list;
-        }
+        private Invoice invoice;
+        public Invoice Invoice { get { return invoice; } set { invoice = value; OnPropertyChanged("Invoice"); } } 
 
     }
 }
