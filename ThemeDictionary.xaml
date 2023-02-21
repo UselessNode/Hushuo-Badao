@@ -113,6 +113,28 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style TargetType="DataGrid">
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <!--<Setter Property="Margin" Value="5"/>-->
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="FontFamily" Value="Bahnschrift"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+
+        <Setter Property="MaxColumnWidth" Value="100"/>
+
+         <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/> 
+
+        <Setter Property="MaxHeight" Value="600"/>
+
+    </Style>
 
     <Style TargetType="DataGridCell">
 
@@ -145,24 +167,9 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="DataGrid">
-        <Setter Property="CanUserAddRows" Value="False"/>
-        <Setter Property="IsReadOnly" Value="True"/>
-        <Setter Property="Margin" Value="5"/>
-        <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
-        <Setter Property="AutoGenerateColumns" Value="False"/>
-        <Setter Property="FontFamily" Value="Bahnschrift"/>
-        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-        
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-
-        <Setter Property="MaxHeight" Value="600"/>
-
+    <Style TargetType="DataGridColumnHeader">
+        <!--<Setter Property="Background" Value="Red"/>-->
+        <!--<Setter Property="MinWidth" Value="Auto"/>-->
     </Style>
 
     <Style TargetType="Label">

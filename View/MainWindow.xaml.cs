@@ -38,16 +38,17 @@ namespace AppDB
         {
             Entities = new();
             InvoicesDataGrid.ItemsSource = Entities.Invoice.ToList();
+            Title = "Менеджер базы данных";
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var input = (sender as TextBox).Text.ToLower();
+            int resultCount = Entities.Invoice.Count(x => x.Product.Name.Contains(input));
             if (!(String.IsNullOrEmpty(input)))
             {
-                //int resultCount = Entities.Invoice.Count(x => x.ProductId.PRODUCT_NAME.Contains(input));
-                TableItemSource = Entities.Invoice.Where(x => x.Product.Name.Contains(input)).ToList();
-                //Title = $"База данных | Поиск: {input} | Результатов: {resultCount} из {Entities.INVOICES.ToList().Count()}";
+                InvoicesDataGrid.ItemsSource = Entities.Invoice.Where(x => x.Product.Name.Contains(input)).ToList();
+                Title = $"База данных | Поиск: {input} | Результатов: {resultCount} из {Entities.Invoice.ToList().Count()}";
             }
             else
                 ReadData();
@@ -75,7 +76,7 @@ namespace AppDB
         private void ResetSearchButton_Click(object sender, RoutedEventArgs e)
         {
             SearchTextBox.Text = "";
-            DatePickerEnd.Text = DatePickerStart.Text = "";
+            //DatePickerEnd.Text = DatePickerStart.Text = "";
             ReadData();
         }
 
@@ -85,18 +86,13 @@ namespace AppDB
             {
                 if(DatePickerEnd.SelectedDate > DatePickerStart.SelectedDate)
                 {
-                    //MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}","ДА",
-                    //    MessageBoxButton.OK,MessageBoxImage.Information);
+                    //MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}", "ДА",
+                    //    MessageBoxButton.OK, MessageBoxImage.Information);
                     var start = DatePickerStart.SelectedDate;
                     var end = DatePickerEnd.SelectedDate;
-                    var filteredData = Entities.Invoice.Where(x => x.DepartureDate > start && x.DepartureDate < end).ToList();
-                    TableItemSource = filteredData;
+                    var filteredData = Entities.Invoice.Where(x => x.DepartureDate >= start && x.DepartureDate <= end).ToList();
+                    InvoicesDataGrid.ItemsSource = filteredData;
                 }
-                //else
-                //{
-                //    MessageBox.Show($"END: {DatePickerEnd.SelectedDate} \n START: {DatePickerStart.SelectedDate}", "НЕТ",
-                //        MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
             }
         }
 
